@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
             <Bot size={20} />
           </div>
           <span className="font-semibold text-lg tracking-tight text-white">
-            Nugnics
+            Tavrix
           </span>
         </div>
 

@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-white">
                 <Bot size={20} />
               </div>
-              <span className="font-semibold text-white text-lg">Nugnics</span>
+              <span className="font-semibold text-white text-lg">Tavrix</span>
             </div>
             <div className="text-sm text-gray-400 max-w-xs">
               <p>71-75 Shelton Street, Covent Garden</p>
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
               </a> */}
             </div>
             <div className="text-xs text-gray-600">
-              © {new Date().getFullYear()} Nugnics AI Limited. All rights
+              © {new Date().getFullYear()} Nemesis AI Limited. All rights
               reserved.
             </div>
           </div>
