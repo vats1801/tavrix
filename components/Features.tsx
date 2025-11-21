@@ -31,7 +31,20 @@ const FeatureBlock: React.FC<{
       <div className="flex-1 relative">
         <div className="absolute -inset-4 bg-gradient-to-r from-violet-500/10 to-blue-500/10 blur-2xl rounded-full opacity-50"></div>
         <div className="relative p-6 rounded-3xl bg-neutral-900/50 border border-white/5">
-          <Placeholder label={`${title} Interface`} height="h-80 md:h-96" />
+          {/* <Placeholder label={`${title} Interface`} height="h-80 md:h-96" /> */}
+          {title === "Smarter Conversations with AI Assistance" ? (
+            <img
+              src="https://static.driffle.com/media-gallery/production/0fee7f1f-bd84-4873-b5d2-e2e3ed4fc52b_603.png"
+              alt={title}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          ) : (
+            <img
+              src="https://static.driffle.com/media-gallery/production/740536b4-da4d-4ba3-a242-80b6d8e719a2_image-16.png"
+              alt={title}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          )}
         </div>
       </div>
 
