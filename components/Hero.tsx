@@ -1,8 +1,68 @@
-import React from "react";
-import { ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, Loader2, CheckCircle } from "lucide-react";
 import { Placeholder } from "./Placeholder";
+import { saveEmail } from "../firebase";
+import Snackbar from "./Snackbar";
 
 const Hero: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [email, setEmail] = useState("");
+  const [snackbar, setSnackbar] = useState<{
+    message: string;
+    type: "success" | "error";
+    isOpen: boolean;
+  }>({ message: "", type: "error", isOpen: false });
+
+  const handleSubmit = async () => {
+    // Validate email
+    if (!email || !email.includes("@")) {
+      setSnackbar({
+        message: "Please enter a valid email address",
+        type: "error",
+        isOpen: true,
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    setIsSuccess(false);
+    setSnackbar({ message: "", type: "error", isOpen: false });
+
+    try {
+      // Save email to Firebase and wait for API response
+      const response = await saveEmail(email);
+
+      // Only show success state after successful API response
+      if (response && response.success) {
+        setIsLoading(false);
+        setIsSuccess(true);
+        setSnackbar({
+          message: "Email successfully saved!",
+          type: "success",
+          isOpen: true,
+        });
+
+        // Reset success state after 3 seconds (only on successful API response)
+        setTimeout(() => {
+          setIsSuccess(false);
+          setEmail("");
+        }, 3000);
+      }
+    } catch (error: any) {
+      console.error("Error saving email:", error);
+      setIsLoading(false);
+      setIsSuccess(false); // Ensure success state is false on error
+
+      // Display the error message in snackbar
+      setSnackbar({
+        message: error?.message || "Failed to save. Please try again.",
+        type: "error",
+        isOpen: true,
+      });
+    }
+  };
+
   return (
     <section className="relative flex flex-col items-center justify-center pt-32 pb-20 px-4 text-center overflow-hidden">
       {/* Ambient Glows */}
@@ -26,14 +86,47 @@ const Hero: React.FC = () => {
           id="email-input"
           className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16 w-full max-w-xl mx-auto"
         >
-          <input
-            type="email"
-            placeholder="Enter your business email"
-            className="w-full bg-white/5 border border-white/10 text-white px-5 py-3 rounded-full outline-none focus:border-violet-500 transition-colors placeholder:text-gray-600"
-          />
-          <button className="w-full sm:w-auto whitespace-nowrap bg-violet-600 text-white px-6 py-3 rounded-full hover:bg-violet-700 transition-colors font-medium flex items-center justify-center gap-2">
-            Get your AI Agent
-            <ArrowRight size={16} />
+          <div className="w-full flex flex-col gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !isLoading && !isSuccess) {
+                  handleSubmit();
+                }
+              }}
+              placeholder="Enter your business email"
+              className="w-full bg-white/5 border border-white/10 text-white px-5 py-3 rounded-full outline-none focus:border-violet-500 transition-colors placeholder:text-gray-600"
+            />
+          </div>
+          <button
+            onClick={handleSubmit}
+            disabled={isLoading || isSuccess}
+            className={`w-full sm:w-auto whitespace-nowrap px-6 py-3 rounded-full transition-all font-medium flex items-center justify-center gap-2 ${
+              isSuccess
+                ? "bg-green-600 text-white"
+                : isLoading
+                ? "bg-violet-600/70 text-white cursor-not-allowed"
+                : "bg-violet-600 text-white hover:bg-violet-700"
+            }`}
+          >
+            {isSuccess ? (
+              <>
+                <CheckCircle size={16} />
+                Successfully Saved!
+              </>
+            ) : isLoading ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                Get your AI Agent
+                <ArrowRight size={16} />
+              </>
+            )}
           </button>
         </div>
 
@@ -63,6 +156,14 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        message={snackbar.message}
+        type={snackbar.type}
+        isOpen={snackbar.isOpen}
+        onClose={() => setSnackbar({ ...snackbar, isOpen: false })}
+      />
     </section>
   );
 };
