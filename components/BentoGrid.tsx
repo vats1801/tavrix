@@ -19,7 +19,12 @@ const BentoGrid: React.FC = () => {
         <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/40 p-1 hover:border-white/20 transition-colors">
           <div className="p-8 h-full flex flex-col">
             <div className="mb-6 h-48 md:h-56">
-              <Placeholder label="A/B Testing UI" height="h-full" />
+              {/* <Placeholder label="A/B Testing UI" height="h-full" /> */}
+              <img
+                src="https://static.driffle.com/media-gallery/production/e25d7b08-dad9-4a87-b39c-69cbe6547aa0_image-14.png"
+                alt="Visual Node Builder"
+                className="w-full h-full object-cover rounded-lg"
+              />
             </div>
             <div className="mt-auto">
               <h3 className="text-xl font-medium text-white mb-2">
@@ -58,7 +63,7 @@ const BentoGrid: React.FC = () => {
           <div className="p-8 h-full flex flex-col">
             <div className="mb-6 h-48 md:h-56">
               <img
-                src="https://static.driffle.com/media-gallery/production/44621467-21f2-4529-98df-025426c30a44_image-10.png"
+                src="https://static.driffle.com/media-gallery/production/3091d66f-9a75-4663-bba3-99ca072a4d02_image-12.png"
                 alt="Visual Node Builder"
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -80,7 +85,7 @@ const BentoGrid: React.FC = () => {
             <div className="mb-6 h-48 md:h-56">
               {/* <Placeholder label="Analytics Charts" height="h-full" /> */}
               <img
-                src="https://static.driffle.com/media-gallery/production/f2cc4b72-c239-4c32-b060-807081fb527b_image-11.png"
+                src="https://static.driffle.com/media-gallery/production/d68e143a-c3c4-4757-b168-e0ed0d341cbe_image-13.png"
                 alt="Visual Node Builder"
                 className="w-full h-full object-cover rounded-lg"
               />

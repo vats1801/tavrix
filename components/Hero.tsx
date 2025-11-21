@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
         setIsLoading(false);
         setIsSuccess(true);
         setSnackbar({
-          message: "Email successfully saved!",
+          message: "Thanks! We'll contact you shortly.",
           type: "success",
           isOpen: true,
         });
@@ -114,12 +114,12 @@ const Hero: React.FC = () => {
             {isSuccess ? (
               <>
                 <CheckCircle size={16} />
-                Successfully Saved!
+                Request Submitted!
               </>
             ) : isLoading ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Saving...
+                Submitting...
               </>
             ) : (
               <>
